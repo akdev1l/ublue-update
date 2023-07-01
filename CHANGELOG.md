@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/akdev1l/ublue-update/compare/v1.0.0...v1.0.1) (2023-07-01)
+
+
+### Bug Fixes
+
+* use tag from release-please ([f461a2a](https://github.com/akdev1l/ublue-update/commit/f461a2a32b824ad75e185c494afe6fc2d218aa79))
+
 ## 1.0.0 (2023-07-01)
 
 
