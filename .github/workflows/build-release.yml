@@ -35,9 +35,6 @@ jobs:
       id-token: write
     needs: release-please
     if: needs.release-please.outputs.releases_created
-    container:
-      image: fedora:38
-      options: --privileged
     steps: 
       # Checkout push-to-registry action GitHub repository
       - name: Checkout Push to Registry action
@@ -63,12 +60,6 @@ jobs:
         with:
           name: ublue-updater-rpms
           path: output/rpmbuild/RPMS/
-
-      - name: install github CLI
-        run: |
-          sudo dnf install 'dnf-command(config-manager)' -y
-          sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
-          sudo dnf install gh -y
 
       - name: Upload ISO
         env:
