@@ -57,11 +57,10 @@ jobs:
             ${{ steps.generate-tags.outputs.date }}
             ${{ steps.generate-tags.outputs.sha_short }}
           oci: true
-          extra-args:
-            - -v ${{ github.workspace }}:/app
+          extra-args: "-v ${{ github.workspace }}:/app"
 
       - name: upload rpm packages as release artifact
-        - uses: actions/upload-artifact@v3
-          with:
-            name: ublue-updater-rpms
-            path: output/rpms/
+        uses: actions/upload-artifact@v3
+        with:
+          name: ublue-updater-rpms
+          path: output/rpms/
