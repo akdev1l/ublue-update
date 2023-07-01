@@ -49,9 +49,7 @@ jobs:
             ./Containerfile
           image: ${{ env.IMAGE_NAME }}
           tags: |
-            ${{ steps.generate-tags.outputs.alias_tags }}
-            ${{ steps.generate-tags.outputs.date }}
-            ${{ steps.generate-tags.outputs.sha_short }}
+            ${{ steps.release-please.outputs.tag }}
           oci: true
           extra-args: "-v ${{ github.workspace }}:/app"
 
