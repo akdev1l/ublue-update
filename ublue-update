@@ -119,7 +119,7 @@ def run_updates():
     root_dir = "/etc/ublue-update.d/"
 
     for root, dirs, files in os.walk(root_dir):
-        for file in files:
+        for file in files.sort():
             full_path = root_dir + "/" + str(file)
 
             executable = os.access(full_path, os.X_OK)
@@ -130,7 +130,7 @@ def run_updates():
 
                 if out.returncode != 0:
                     log.info(f"{full_path} returned error code: {out.returncode}")
-                    log.info("Program output: \n {out.stdout}")
+                    log.info(f"Program output: \n {out.stdout}")
                     if dbus_notify:
                         notify2.Notification(
                             "System Updater",
