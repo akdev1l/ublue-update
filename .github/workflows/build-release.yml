@@ -49,7 +49,7 @@ jobs:
             ./Containerfile
           image: ${{ env.IMAGE_NAME }}
           tags: |
-            ${{ steps.release-please.outputs.tag }}
+            ${{ needs.release-please.outputs.tag }}
           oci: true
           extra-args: "-v ${{ github.workspace }}:/app"
 
@@ -59,12 +59,13 @@ jobs:
           name: ublue-updater-rpms
           path: output/rpmbuild/RPMS/
 
-      - name: Upload ISO
+      - name: upload rpm packages
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          gh release upload \
-            ${{ needs.release-please.outputs.tag }} \
-            ./${{ steps.isogenerator.outputs.iso-path }} \
-            --repo ${{ github.repository_owner }}/${{ github.event.repository.name }} \
-            --clobber
+          find output/rpmbuild/RPMS -type f -name '*.rpm' -print0 | \
+            xargs -0 -tI{} gh release upload \
+              ${{ needs.release-please.outputs.tag }} \
+              {} \
+              --repo ${{ github.repository_owner }}/${{ github.event.repository.name }} \
+              --clobber
