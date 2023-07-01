@@ -1,0 +1,84 @@
+name: build-ublue
+on:
+  merge_group:  
+  push:
+    branches:
+      - develop
+    paths-ignore:
+      - "**.md"
+      - "**.txt"
+  workflow_dispatch:  
+env:
+    IMAGE_NAME: ublue-update
+    IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
+
+jobs:
+  release-please:
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    outputs:
+      releases_created: ${{ steps.release-please.outputs.releases_created }}
+      tag: ${{ steps.release-please.outputs.tag_name }}
+      upload_url: ${{ steps.release-please.outputs.upload_url }}
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        id: release-please
+        with:
+          release-type: simple
+          package-name: release-please-action
+
+  build-release:
+    name: Build and push rpm package
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    needs: release-please
+    if: needs.release-please.outputs.releases_created
+    container:
+      image: fedora:38
+      options: --privileged
+    steps: 
+      # Checkout push-to-registry action GitHub repository
+      - name: Checkout Push to Registry action
+        uses: actions/checkout@v3
+
+      # Build image using Buildah action
+      - name: Build package using containerized build environment
+        id: build_image
+        uses: redhat-actions/buildah-build@v2
+        with:
+          containerfiles: |
+            ./Containerfile
+          image: ${{ env.IMAGE_NAME }}
+          tags: |
+            ${{ steps.generate-tags.outputs.alias_tags }}
+            ${{ steps.generate-tags.outputs.date }}
+            ${{ steps.generate-tags.outputs.sha_short }}
+          oci: true
+          extra-args: "-v ${{ github.workspace }}:/app"
+
+      - name: upload rpm packages as release artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ublue-updater-rpms
+          path: output/rpmbuild/RPMS/
+
+      - name: install github CLI
+        run: |
+          sudo dnf install 'dnf-command(config-manager)' -y
+          sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
+          sudo dnf install gh -y
+
+      - name: Upload ISO
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          gh release upload \
+            ${{ needs.release-please.outputs.tag }} \
+            ./${{ steps.isogenerator.outputs.iso-path }} \
+            --repo ${{ github.repository_owner }}/${{ github.event.repository.name }} \
+            --clobber
