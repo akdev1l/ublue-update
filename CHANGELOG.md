@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/akdev1l/ublue-update/compare/v1.1.0...v1.1.1) (2023-07-03)
+
+
+### Bug Fixes
+
+* update build-release.yml ([aa43444](https://github.com/akdev1l/ublue-update/commit/aa4344465edc64827a0e5ad1ce5158a698eca73f))
+
 ## [1.1.0](https://github.com/akdev1l/ublue-update/compare/v1.0.2...v1.1.0) (2023-07-02)
 
 
