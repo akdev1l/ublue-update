@@ -6,6 +6,8 @@ import logging
 import tomllib
 import argparse
 
+from notification_manager import NotificationManager
+
 
 def check_cpu_load():
     # get load average percentage in last 5 minutes:
@@ -139,6 +141,8 @@ log = logging.getLogger(__name__)
 
 def main():
 
+    notification_manager = NotificationManager()
+    print(notification_manager)
     # setup argparse
     parser = argparse.ArgumentParser()
     parser.add_argument(
