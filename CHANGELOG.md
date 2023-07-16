@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.3](https://github.com/akdev1l/ublue-update/compare/v1.2.2...v1.2.3) (2023-07-16)
+
+
+### Bug Fixes
+
+* get environment via parent process in version macro ([996dc60](https://github.com/akdev1l/ublue-update/commit/996dc601d6a91f1299190db6950928c25869b24c))
+
 ## [1.2.2](https://github.com/akdev1l/ublue-update/compare/v1.2.1...v1.2.2) (2023-07-16)
 
 
