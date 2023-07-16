@@ -48,7 +48,7 @@ jobs:
         uses: redhat-actions/buildah-build@v2
         with:
           containerfiles: |
-            ./Containerfile.builder
+            ./Containerfile
           image: ${{ env.IMAGE_NAME }}
           envs: |
             GITHUB_REF_NAME=${{ env.GITHUB_REF_NAME }}
