@@ -51,7 +51,7 @@ jobs:
             ./Containerfile
           image: ${{ env.IMAGE_NAME }}
           envs: |
-            GITHUB_REF_NAME=${{ env.GITHUB_REF_NAME }}
+            GITHUB_REF_NAME=${{ github.ref_name }}
           tags: |
             ${{ needs.release-please.outputs.tag }}
           oci: true
