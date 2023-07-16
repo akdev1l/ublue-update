@@ -1,10 +1,7 @@
-UBLUE_ROOT := $(UBLUE_ROOT)
+UBLUE_ROOT := output
 TARGET := ublue-update
 SOURCE_DIR := $(UBLUE_ROOT)/$(TARGET)
 RPMBUILD := $(UBLUE_ROOT)/rpmbuild
-ifeq ($(GITHUB_REF),)
-export GITHUB_REF := refs/tags/v1.0.0+$(shell git rev-parse --short HEAD)
-endif
 
 all: build
 
@@ -31,7 +28,7 @@ dnf-install:
 
 .PHONY: builder-image
 builder-image:
-	podman build -t $(TARGET):builder -f Containerfile.builder .
+	podman build -t $(TARGET):builder --target builder .
 
 .PHONY: builder-exec
 builder-exec:

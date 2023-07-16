@@ -17,10 +17,16 @@ RUN dnf install \
     rpm-build && \
     mkdir -p "$UBLUE_ROOT" && \
     rpkg spec --outdir  "$UBLUE_ROOT" && \
-    dnf builddep -y output/ublue-update.spec && \
-    make build-rpm
+    dnf builddep -y output/ublue-update.spec
+
+# Target for building the rpm file
+FROM builder AS rpm
+
+RUN  make build-rpm
 
 # Dump a file list for each RPM for easier consumption
+FROM rpm as rpmCopy
+
 RUN \
     for RPM in ${UBLUE_ROOT}/noarch/*.rpm; do \
         NAME="$(rpm -q $RPM --queryformat='%{NAME}')"; \
@@ -30,11 +36,11 @@ RUN \
         cp "${RPM}" "${UBLUE_ROOT}/ublue-os/rpms/$(rpm -q "${RPM}" --queryformat='%{NAME}.%{ARCH}.rpm')"; \
     done
 
-FROM scratch
+FROM scratch AS releaseContainer
 
 ENV UBLUE_ROOT=/app/output
 
 # Copy RPMs
-COPY --from=builder ${UBLUE_ROOT}/ublue-os/rpms /rpms
+COPY --from=rpmCopy ${UBLUE_ROOT}/ublue-os/rpms /rpms
 # Copy dumped contents
-COPY --from=builder ${UBLUE_ROOT}/ublue-os/files /files
+COPY --from=rpmCopy ${UBLUE_ROOT}/ublue-os/files /files

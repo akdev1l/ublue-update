@@ -1,7 +1,8 @@
 function ublue_update_version {
     if [ "$GITHUB_REF_NAME" = "" ]; then
-        echo "1.0.0+$(git rev-parse --short HEAD)"
+        version="$(awk '/^## \[/{print $2; exit}' CHANGELOG.md | sed 's/\[//g;s/\].*$//g')"
+        echo "${version}+$(date +%s)"
     else
-        echo "$GITHUB_REF_NAME" 
+        echo "$GITHUB_REF_NAME"
     fi
 }
