@@ -1,8 +1,14 @@
+#!/bin/bash
+
 function ublue_update_version {
-    if [ "$GITHUB_REF_NAME" = "" ]; then
+    # Environment variables don't seem to be passed down by rpkg
+    # so we need to reach out to the rpkg process environment to get GITHUB_REF_NAME
+    github_release="$(awk '/GITHUB_REF_NAME/{print $2}' FS='=' RS='\0' /proc/$PPID/environ)"
+
+    if [ "$github_release" = "" ]; then
         version="$(awk '/^## \[/{print $2; exit}' CHANGELOG.md | sed 's/\[//g;s/\].*$//g')"
-        echo "${version}+$(date +%s)"
+        output "${version}+${GIT_HEAD_SHORT}"
     else
-        echo "$GITHUB_REF_NAME"
+        output "${github_release}"
     fi
 }
