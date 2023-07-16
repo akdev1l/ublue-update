@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/akdev1l/ublue-update/compare/v1.2.0...v1.2.1) (2023-07-16)
+
+
+### Bug Fixes
+
+* passthrough environment variable ([da11a2d](https://github.com/akdev1l/ublue-update/commit/da11a2d9712cb7c0ae0554508026b9a4dbc14f6f))
+
 ## [1.2.0](https://github.com/akdev1l/ublue-update/compare/v1.1.5...v1.2.0) (2023-07-16)
 
 
