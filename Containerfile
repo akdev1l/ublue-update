@@ -1,5 +1,7 @@
 FROM registry.fedoraproject.org/fedora:latest AS builder
 
+ARG REF_NAME=""
+ENV GITHUB_REF_NAME=$REF_NAME
 ENV UBLUE_ROOT=/app/output
 
 WORKDIR /app 

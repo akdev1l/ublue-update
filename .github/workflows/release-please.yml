@@ -53,9 +53,10 @@ jobs:
           tags: |
             ${{ needs.release-please.outputs.tag }}
           oci: true
+          build-args: |
+            REF_NAME=${{ needs.release-please.outputs.major }}.${{ needs.release-please.outputs.minor }}.${{ needs.release-please.outputs.patch }}
           extra-args: |
             -v ${{ github.workspace }}:/app
-            --env GITHUB_REF_NAME=${{ needs.release-please.outputs.tag }}
             --target rpm
 
       - name: upload output artifacts as release artifact
