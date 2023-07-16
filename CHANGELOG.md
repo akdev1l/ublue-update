@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/akdev1l/ublue-update/compare/v1.2.1...v1.2.2) (2023-07-16)
+
+
+### Bug Fixes
+
+* use merged containerfile ([d4b6e82](https://github.com/akdev1l/ublue-update/commit/d4b6e82a00b698ec9c1cc4d5f1acf2c8d60c3a0b))
+
 ## [1.2.1](https://github.com/akdev1l/ublue-update/compare/v1.2.0...v1.2.1) (2023-07-16)
 
 
