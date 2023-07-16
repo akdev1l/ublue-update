@@ -50,13 +50,12 @@ jobs:
           containerfiles: |
             ./Containerfile
           image: ${{ env.IMAGE_NAME }}
-          envs: |
-            GITHUB_REF_NAME=${{ env.GITHUB_REF_NAME }}
           tags: |
             ${{ needs.release-please.outputs.tag }}
           oci: true
           extra-args: |
             -v ${{ github.workspace }}:/app
+            --env GITHUB_REF_NAME=${{ needs.release-please.outputs.tag }}
             --target rpm
 
       - name: upload output artifacts as release artifact
