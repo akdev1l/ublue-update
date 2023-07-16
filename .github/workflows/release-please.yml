@@ -50,6 +50,8 @@ jobs:
           containerfiles: |
             ./Containerfile.builder
           image: ${{ env.IMAGE_NAME }}
+          envs: |
+            GITHUB_REF_NAME=${{ env.GITHUB_REF_NAME }}
           tags: |
             ${{ needs.release-please.outputs.tag }}
           oci: true
