@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.5](https://github.com/akdev1l/ublue-update/compare/v1.2.4...v1.2.5) (2023-07-16)
+
+
+### Bug Fixes
+
+* match version with release please ([7a4167f](https://github.com/akdev1l/ublue-update/commit/7a4167fd1728a11189a2757b3f65faa03895a4a5))
+
 ## [1.2.4](https://github.com/akdev1l/ublue-update/compare/v1.2.3...v1.2.4) (2023-07-16)
 
 
