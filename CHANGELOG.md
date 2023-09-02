@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.6](https://github.com/akdev1l/ublue-update/compare/v1.2.5...v1.2.6) (2023-09-02)
+
+
+### Bug Fixes
+
+* missing build requires python-pip ([c9eb93b](https://github.com/akdev1l/ublue-update/commit/c9eb93b6629dee411da52ce75784705bb6b55177))
+
 ## [1.2.5](https://github.com/akdev1l/ublue-update/compare/v1.2.4...v1.2.5) (2023-07-16)
 
 
