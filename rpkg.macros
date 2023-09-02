@@ -1,6 +1,6 @@
 function ublue_update_version {
     if [ "$GITHUB_REF_NAME" = "" ]; then
-        echo "$(git tag -l | tail -1).$(git rev-parse --short HEAD)"
+        echo "$(git tag -l | tail -1 | sed 's/^v//').$(git rev-parse --short HEAD)"
     else
         echo "$GITHUB_REF_NAME" 
     fi
